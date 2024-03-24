@@ -1,10 +1,14 @@
-let openShopping = document.querySelector('.shopping');
-let closingShopping = document.querySelector('.closingShopping');
-let list = document.querySelector('.list');
-let listCard = document.querySelector('.listCard');
-let body = document.querySelector('body');
-let total = document.querySelector('.total');
-let quantity = document.querySelector('.quantity');
+// Import items from cartdata.js
+import { items } from "./cartdata.js";
+
+// Get references to DOM elements
+const openShopping = document.querySelector('.shopping');
+const closingShopping = document.querySelector('.closingShopping');
+const list = document.querySelector('.list');
+const listCard = document.querySelector('.listCard');
+const body = document.querySelector('body');
+const total = document.querySelector('.total');
+const quantity = document.querySelector('.quantity');
 
 // Initialize listCards array to store added items
 let listCards = [];
@@ -18,11 +22,6 @@ openShopping.addEventListener('click', () => {
 closingShopping.addEventListener('click', () => {
     body.classList.remove('active');
 });
-
-// Importation
-import { items } from "./cartdata.js";
-
-console.log(items);
 
 // GET
 const shoppingList = document.querySelector('.listCard');
@@ -39,11 +38,6 @@ items.forEach((item, key) => {
     `;
     list.appendChild(newDiv);
 });
-
-// Initialize the app (if needed)
-function initApp() {
-    
-};
 
 // Functionality to add items to the cart
 function addToCart(itemId){
@@ -72,13 +66,13 @@ function reloadCard(){
 
         const newDiv = document.createElement('li');
         newDiv.innerHTML =`
-            <div><img src = "image/${item.image}" /></div>
+            <div><img src="image/${item.image}" /></div>
             <div>${item.name}</div>
             <div>${(item.price * item.quantity).toLocaleString()}</div>
             <div>
-                <button onclick = "changeQuantity(${key}, ${item.quantity - 1})">-</button>
+                <button onclick="changeQuantity(${key}, ${item.quantity - 1})">-</button>
                 <div class="count">${item.quantity}</div>
-                <button onclick = "changeQuantity(${key}, ${item.quantity + 1})">+</button>
+                <button onclick="changeQuantity(${key}, ${item.quantity + 1})">+</button>
             </div>
         `;
         listCard.appendChild(newDiv);
@@ -88,13 +82,12 @@ function reloadCard(){
     quantity.innerText = count;
 };
 
-//adding and reducing the quantity of items in the cart
+// Function to change the quantity of items in the cart
 function changeQuantity(key, quantity){
     if(quantity == 0){
-        delete listCard[key];
-    }else{
+        listCards.splice(key, 1);
+    } else {
         listCards[key].quantity = quantity;
-        listCards[key].price = quantity * products[key].price;
     }
     reloadCard();
 };
