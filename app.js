@@ -75,7 +75,6 @@ function reloadCard(){
             <div><img src = "image/${item.image}" /></div>
             <div>${item.name}</div>
             <div>${(item.price * item.quantity).toLocaleString()}</div>
-            <div>${item.quantity}</div>
             <div>
                 <button onclick = "changeQuantity(${key}, ${item.quantity - 1})">-</button>
                 <div class="count">${item.quantity}</div>
@@ -87,4 +86,15 @@ function reloadCard(){
 
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
-}
+};
+
+//adding and reducing the quantity of items in the cart
+function changeQuantity(key, quantity){
+    if(quantity == 0){
+        delete listCard[key];
+    }else{
+        listCards[key].quantity = quantity;
+        listCards[key].price = quantity * products[key].price;
+    }
+    reloadCard();
+};
