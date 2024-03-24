@@ -13,7 +13,7 @@ const quantity = document.querySelector('.quantity');
 // Initialize listCards array to store added items
 let listCards = [];
 
-// Displaying selected items in the shopping cart
+// Opening the shopping cart list
 openShopping.addEventListener('click', () => {
     body.classList.add('active');
 });
@@ -39,7 +39,7 @@ items.forEach((item, key) => {
     list.appendChild(newDiv);
 });
 
-// Functionality to add items to the cart
+// Function to add items to the cart
 function addToCart(itemId){
     const selectedItem = items.find(item => item.id === itemId);
     const existingItem = listCards.find(item => item.id === itemId);
