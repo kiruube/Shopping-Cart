@@ -5,13 +5,13 @@ import { items } from "./cartdata.js";
 const openShopping = document.querySelector('.shopping');
 const closingShopping = document.querySelector('.closingShopping');
 const list = document.querySelector('.list');
-const listCard = document.querySelector('.listCard');
+const listCart = document.querySelector('.listCart');
 const body = document.querySelector('body');
 const total = document.querySelector('.total');
 const quantity = document.querySelector('.quantity');
 
 // Initialize listCards array to store added items
-let listCards = [];
+let listCarts = [];
 
 // Opening the shopping cart list
 openShopping.addEventListener('click', () => {
@@ -42,25 +42,25 @@ items.forEach((item, key) => {
 // Function to add items to the cart
 function addToCart(itemId){
     const selectedItem = items.find(item => item.id === itemId);
-    const existingItem = listCards.find(item => item.id === itemId);
+    const existingItem = listCarts.find(item => item.id === itemId);
 
     if(existingItem) {
         existingItem.quantity += 1;
     } else {
         const newItem = { ...selectedItem, quantity: 1 };
-        listCards.push(newItem);
+        listCarts.push(newItem);
     }
 
-    reloadCard();
+    reloadCart();
 };
 
 // Function to update the cart display
-function reloadCard(){
-    listCard.innerHTML = '';
+function reloadCart(){
+    listCart.innerHTML = '';
     let count = 0;
     let totalPrice = 0;
 
-    listCards.forEach((item, key) => {
+    listCarts.forEach((item, key) => {
         totalPrice += item.price * item.quantity;
         count += item.quantity;
 
@@ -75,7 +75,7 @@ function reloadCard(){
                 <button onclick="changeQuantity(${key}, ${item.quantity + 1})">+</button>
             </div>
         `;
-        listCard.appendChild(newDiv);
+        listCart.appendChild(newDiv);
     });
 
     total.innerText = totalPrice.toLocaleString();
@@ -85,9 +85,9 @@ function reloadCard(){
 // Function to change the quantity of items in the cart
 function changeQuantity(key, quantity){
     if(quantity == 0){
-        listCards.splice(key, 1);
+        listCarts.splice(key, 1);
     } else {
-        listCards[key].quantity = quantity;
+        listCarts[key].quantity = quantity;
     }
-    reloadCard();
+    reloadCart();
 };
